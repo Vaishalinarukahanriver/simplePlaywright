@@ -9,13 +9,22 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (username === "admin" && password === "admin") {
-      localStorage.setItem("loggedIn", "true");
+    setError("");
+
+    // Ask the backend (a Next.js route handler) to log us in.
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (res.ok) {
       router.push("/dashboard");
     } else {
-      setError("Invalid username or password");
+      const data = await res.json().catch(() => ({}));
+      setError(data.error ?? "Login failed");
     }
   }
 
