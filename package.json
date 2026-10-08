@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui"
   },
   "dependencies": {
     "next": "^15.5.27",
@@ -13,6 +16,7 @@
     "react-dom": "19.1.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/node": "20.17.6",
     "@types/react": "19.3.0",
     "typescript": "5.8.2"
